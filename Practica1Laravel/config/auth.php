@@ -40,7 +40,13 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+        ],
     ],
+    // asignar el driver "passport" para el authentication guard
+    // Passport se encargará de validar las peticiones entrantes a la API
 
     /*
     |--------------------------------------------------------------------------

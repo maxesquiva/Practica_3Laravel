@@ -15,12 +15,11 @@ use App\Http\Middleware\checkUserIsLogged;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::post('/login', [LoginController::class, 'login']);
-Route::post('/me', [LoginController::class, 'me'])->middleware('customAuthentication'); //TODO
-Route::post('/logout', [LoginController::class, 'logout'])->middleware('customAuthentication'); //SANCTUM
-
+Route::get('/me', [LoginController::class, 'me'])->middleware('auth:api'); //TODO
+Route::get('/logout', [LoginController::class, 'logout'])->middleware('auth:api'); //SANCTUM
+Route::post('/create',[LoginController::class, 'create']); //
