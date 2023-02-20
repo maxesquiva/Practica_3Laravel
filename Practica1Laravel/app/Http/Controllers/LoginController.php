@@ -12,66 +12,22 @@ use Throwable;
 
 class LoginController extends Controller
 {
-
-    // public function login(Request $request)
-    // {
-    //     $data = $request->validate([
-    //         'email' => 'required|email:rfc',
-    //         'password' => 'required',
-    //     ]);
-
-    //     if(!auth()->attempt($data)) {
-    //         abort(Response::HTTP_UNAUTHORIZED, 'Unauthenticated');
-    //     }
-
-    //     $user = Auth::user();
-    //     $accessToken = $user->createToken('auth_token');
-
-    //     return response()->json(['user' => Auth::user(), 'token' => $accessToken]);
-
-    // }
-
-
-    // public function me(Request $request)
-    // {
-    //     return auth('api')->user();
-    // }
-
-    // public function logout(Request $request) {
-    //     auth('api')->user()->currentAccessToken()->delete();
-
-    //     $response = [
-    //         'success' => true,
-    //         'message' => 'ha cerrado sesion',
-    //         'data' => ''
-    //     ];
-    //     return response()->json($response);
-    // }
-
-
     public function login(Request $request)
     {
-
-        if($request ->has ('name')){
-            $data = $request->validate([
-                            'name' => 'required',
-                            'password' => 'required'
-                        ]);
+        switch ($request) {
+            case ($request->has('name')):
+                $data = $request->validate([
+                    'name' => 'required',
+                    'password' => 'required'
+                ]);
+                break;
+            case ($request->has('email')):
+                $data = $request->validate([
+                    'email' => 'required',
+                    'password' => 'required'
+                ]);
+                break;
         }
-        // switch ($request) {
-        //     case ($request->has('name')):
-        //         $data = $request->validate([
-        //             'name' => 'required',
-        //             'password' => 'required'
-        //         ]);
-        //         break;
-        //     case ($request->has('email')):
-        //         $data = $request->validate([
-        //             'email' => 'required',
-        //             'password' => 'required'
-        //         ]);
-        //         break;
-        // }
         //guarda el token
         if (Auth::guard(name: 'api')->check()) {
             $response = [
